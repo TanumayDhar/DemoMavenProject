@@ -18,6 +18,7 @@ public class Demo{
 		driver= new ChromeDriver();
 
 		driver.manage().window().maximize();
+		System.out.println("Browser launched");
 
 
 
@@ -26,6 +27,7 @@ public class Demo{
 	public void openURL()
 	{
 		driver.get("https://www.google.com/");
+		System.out.println("google opened");
 
 
 	}
@@ -42,6 +44,7 @@ public class Demo{
 	{
 
 		driver.close();
+		System.out.println("Project closed");
 	}
 
 

@@ -4,35 +4,50 @@ pipeline{
 	
 		stages{
 		
-			stage('Build')
-		{
-			
-				steps
+			stage('SCM checkout')
 			{
-				git 'https://github.com/TanumayDhar/DemoMavenProject.git'
+				steps{
+				
+				git "https://github.com/TanumayDhar/openMRS_POM_model2.git"
+					}
 			}
+			
+			stage('Build')
+			{
+				steps{
+					
+					echo 'Building the application...'
+				
+				}
+			
+			}
+			stage('Integration Test')
+			{
+				steps
+				{
+				
+				bat 'mvn -f pom.xml clean install'
+				
+				}
+			
+			}
+			post {
+				always 
+				{
+            
+					step([$class: 'Publisher', reportFilenamePattern: '**/testng-results.xml'])
+				}
+				}
+			
+			
+			
+			
+		
 		}
 		
-			stage('Test')
-			{
-				steps
-				{
-					bat 'mvn clean install'
-				}
-				
-				
-			}
-			
-			stage('Deploy')
-			{
 		
-				steps
-				{
-				
-				echo 'Deploy on test env'
-				}
-			}
-
-}
-}
+	
+	
+	
+	}
 
